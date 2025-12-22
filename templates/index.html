@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>StyleSense Recommendation Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>StyleSense Recommendation Dashboard</h1>
+
+    <form action="/predict" method="post">
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" name="age" required value="{{ age if age is defined else '' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="positive_feedback_count">Positive Feedback Count:</label>
+            <input type="number" name="positive_feedback_count" required value="{{ positive_feedback_count if positive_feedback_count is defined else '' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="clothing_id">Clothing ID:</label>
+            <input type="text" name="clothing_id" required value="{{ clothing_id if clothing_id is defined else '' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="division_name">Division Name:</label>
+            <input type="text" name="division_name" required value="{{ division_name if division_name is defined else '' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="department_name">Department Name:</label>
+            <input type="text" name="department_name" required value="{{ department_name if department_name is defined else '' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="class_name">Class Name:</label>
+            <input type="text" name="class_name" required value="{{ class_name if class_name is defined else '' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="title">Review Title:</label>
+            <textarea name="title">{{ title if title is defined else '' }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="review">Review Text:</label>
+            <textarea name="review">{{ review if review is defined else '' }}</textarea>
+        </div>
+
+        <button type="submit">Predict Recommendation</button>
+    </form>
+
+    {% if prediction is defined %}
+    <div class="result">
+        <strong>Prediction:</strong> 
+        {% if prediction == 1 %}
+            Customer would recommend this product.
+        {% else %}
+            Customer would not recommend this product.
+        {% endif %}
+    </div>
+    {% endif %}
+</body>
+</html>
